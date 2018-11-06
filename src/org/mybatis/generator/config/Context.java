@@ -481,6 +481,14 @@ public class Context extends PropertyHolder {
         return steps;
     }
 
+    /**
+     * 生成文件
+     * @param callback
+     * @param generatedJavaFiles 生成的Java文件
+     * @param generatedXmlFiles 生成的XML文件
+     * @param warnings
+     * @throws InterruptedException
+     */
     public void generateFiles(ProgressCallback callback,
             List<GeneratedJavaFile> generatedJavaFiles,
             List<GeneratedXmlFile> generatedXmlFiles, List<String> warnings)

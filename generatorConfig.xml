@@ -9,15 +9,17 @@
             <property name="suppressDate" value="true"/>
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test" userId="root" password="root">  
-        </jdbcConnection>  
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.0.195:3306/qm_scrm_dev"
+                        userId="qm_weixin"
+                        password="QM_W%12Xi?Hv"/>
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>  
         </javaTypeResolver>  
         <javaModelGenerator targetPackage="com.geeku.model.innovative" targetProject="target">  
             <property name="enableSubPackages" value="true"/>  
             <property name="trimStrings" value="true"/>
-           	<property name="rootClass" value="com.geeku.model.BaseModel"/>   
+<!--           	<property name="rootClass" value="com.geeku.model.BaseModel"/>  -->
         </javaModelGenerator>  
         <sqlMapGenerator targetPackage="com.geeku.mapping.innovative" targetProject="target">  
             <property name="enableSubPackages" value="true"/>  
@@ -35,7 +37,7 @@
 		<table tableName="recruit_member" domainObjectName="RecruitMember" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="recruit" domainObjectName="Recruit" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		 -->
-		<table tableName="recruit_member" domainObjectName="RecruitMember" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+		<table tableName="scrm_activity_info" domainObjectName="ActivityInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 			 <generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
 			

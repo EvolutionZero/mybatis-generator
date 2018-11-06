@@ -123,6 +123,11 @@ public class InnerClass extends JavaElement {
         initializationBlocks.add(initializationBlock);
     }
 
+    /**
+     * 属性生成
+     * @param indentLevel
+     * @return
+     */
     public String getFormattedContent(int indentLevel) {
         StringBuilder sb = new StringBuilder();
 

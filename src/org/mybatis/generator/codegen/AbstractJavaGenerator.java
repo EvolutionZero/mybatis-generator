@@ -79,11 +79,16 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
-
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
         field.setType(fqjt);
         field.setName(property);
+
+        if(introspectedColumn.isIdentity()){
+            field.addAnnotation("@Id");
+            field.addAnnotation("@GeneratedValue(strategy = GenerationType.IDENTITY)");
+        }
+        field.addAnnotation("@Column(name=\"" + introspectedColumn.getActualColumnName() + "\")");
         context.getCommentGenerator().addFieldComment(field,
                 introspectedTable, introspectedColumn);
 
@@ -99,6 +104,7 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName(getSetterMethodName(property));
         method.addParameter(new Parameter(fqjt, property));
+        //FIXME builder形式改造
         context.getCommentGenerator().addSetterComment(method,
                 introspectedTable, introspectedColumn);
 

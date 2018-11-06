@@ -23,6 +23,7 @@ import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
+import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.codegen.AbstractGenerator;
 import org.mybatis.generator.codegen.AbstractJavaClientGenerator;
@@ -181,6 +182,19 @@ public class IntrospectedTableMyBatis3Impl extends IntrospectedTable {
             List<CompilationUnit> compilationUnits = javaGenerator
                     .getCompilationUnits();
             for (CompilationUnit compilationUnit : compilationUnits) {
+                String introspectedTableName = this.getFullyQualifiedTable().getIntrospectedTableName();
+                // 生成java的model
+                TopLevelClass topLevelClass = (TopLevelClass) compilationUnit;
+
+                topLevelClass.addImportedType("javax.persistence.Entity");
+                topLevelClass.addImportedType("javax.persistence.Table");
+                topLevelClass.addImportedType("javax.persistence.Id");
+                topLevelClass.addImportedType("javax.persistence.GeneratedValue");
+                topLevelClass.addImportedType("javax.persistence.GenerationType");
+                topLevelClass.addImportedType("javax.persistence.Column");
+
+                topLevelClass.addAnnotation("@Entity");
+                topLevelClass.addAnnotation("@Table(name=\"" + introspectedTableName + "\")");
                 GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit,
                         context.getJavaModelGeneratorConfiguration()
                                 .getTargetProject(),

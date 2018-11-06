@@ -15,15 +15,13 @@
  */
 package org.mybatis.generator.api.dom.java;
 
+import org.mybatis.generator.api.dom.OutputUtilities;
+
 import static org.mybatis.generator.api.dom.OutputUtilities.calculateImports;
 import static org.mybatis.generator.api.dom.OutputUtilities.newLine;
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author Jeff Butler
@@ -69,14 +67,18 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
         }
     }
 
+    // 生成Java
     public String getFormattedContent() {
         StringBuilder sb = new StringBuilder();
 
+        // 类注释
         for (String fileCommentLine : fileCommentLines) {
             sb.append(fileCommentLine);
             newLine(sb);
         }
 
+
+        // 包名
         if (stringHasValue(getType().getPackageName())) {
             sb.append("package "); //$NON-NLS-1$
             sb.append(getType().getPackageName());
@@ -95,7 +97,8 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
         if (staticImports.size() > 0) {
             newLine(sb);
         }
-        
+
+        // 引包
         Set<String> importStrings = calculateImports(importedTypes);
         for (String importString : importStrings) {
             sb.append(importString);
@@ -142,4 +145,5 @@ public class TopLevelClass extends InnerClass implements CompilationUnit {
     public void addStaticImports(Set<String> staticImports) {
         this.staticImports.addAll(staticImports);
     }
+
 }

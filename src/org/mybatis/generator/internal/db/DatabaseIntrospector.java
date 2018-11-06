@@ -186,7 +186,6 @@ public class DatabaseIntrospector {
         Iterator<IntrospectedTable> iter = introspectedTables.iterator();
         while (iter.hasNext()) {
             IntrospectedTable introspectedTable = iter.next();
-
             if (!introspectedTable.hasAnyColumns()) {
                 // add warning that the table has no columns, remove from the
                 // list
