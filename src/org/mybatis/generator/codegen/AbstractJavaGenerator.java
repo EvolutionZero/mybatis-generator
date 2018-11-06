@@ -99,8 +99,8 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
         FullyQualifiedJavaType fqjt = introspectedColumn
                 .getFullyQualifiedJavaType();
         String property = introspectedColumn.getJavaProperty();
-
         Method method = new Method();
+        method.setReturnType(new FullyQualifiedJavaType(introspectedColumn.getIntrospectedTable().getFullyQualifiedTable().getDomainObjectName()));
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName(getSetterMethodName(property));
         method.addParameter(new Parameter(fqjt, property));
@@ -116,7 +116,8 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
             sb.append(property);
             sb.append(" == null ? null : "); //$NON-NLS-1$
             sb.append(property);
-            sb.append(".trim();"); //$NON-NLS-1$
+            sb.append(".trim(); "); //$NON-NLS-1$
+            sb.append(" return this;");
             method.addBodyLine(sb.toString());
         } else {
             sb.append("this."); //$NON-NLS-1$
@@ -124,6 +125,7 @@ public abstract class AbstractJavaGenerator extends AbstractGenerator {
             sb.append(" = "); //$NON-NLS-1$
             sb.append(property);
             sb.append(';');
+            sb.append(" return this;");
             method.addBodyLine(sb.toString());
         }
 

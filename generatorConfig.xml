@@ -40,6 +40,8 @@
 		<table tableName="scrm_activity_info" domainObjectName="ActivityInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
 			 <generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
-			
+        <table tableName="scrm_activity_award_log" domainObjectName="ActivityAwardLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>  
 </generatorConfiguration>  
