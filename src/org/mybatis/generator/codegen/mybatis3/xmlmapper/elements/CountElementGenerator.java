@@ -58,6 +58,7 @@ public class CountElementGenerator extends
         sb.append("select "); //$NON-NLS-1$
 
         sb.append("count(1) ");
+        answer.addElement(new TextElement(sb.toString()));
 
         sb.setLength(0);
         sb.append("from "); //$NON-NLS-1$
