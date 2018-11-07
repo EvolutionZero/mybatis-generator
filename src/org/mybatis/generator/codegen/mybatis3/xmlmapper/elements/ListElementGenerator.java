@@ -15,23 +15,25 @@
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper.elements;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
 import org.mybatis.generator.api.IntrospectedColumn;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
+import org.mybatis.generator.config.GeneratedKey;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
  * 
  * @author Jeff Butler
  * 
  */
-public class SelectByPrimaryKeyElementGenerator extends
+public class ListElementGenerator extends
         AbstractXmlElementGenerator {
 
-    public SelectByPrimaryKeyElementGenerator() {
+    public ListElementGenerator() {
         super();
     }
 
@@ -40,7 +42,14 @@ public class SelectByPrimaryKeyElementGenerator extends
         XmlElement answer = new XmlElement("select"); //$NON-NLS-1$
 
         answer.addAttribute(new Attribute(
-                "id", introspectedTable.getSelectByPrimaryKeyStatementId())); //$NON-NLS-1$
+                "id", introspectedTable.getList())); //$NON-NLS-1$
+
+        FullyQualifiedJavaType parameterType = introspectedTable.getRules()
+                .calculateAllFieldsClass();
+
+        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
+                parameterType.getFullyQualifiedName()));
+
         if (introspectedTable.getRules().generateResultMapWithBLOBs()) {
             answer.addAttribute(new Attribute("resultMap", //$NON-NLS-1$
                     introspectedTable.getResultMapWithBLOBsId()));
@@ -49,26 +58,10 @@ public class SelectByPrimaryKeyElementGenerator extends
                     introspectedTable.getBaseResultMapId()));
         }
 
-        String parameterType;
-        if (introspectedTable.getRules().generatePrimaryKeyClass()) {
-            parameterType = introspectedTable.getPrimaryKeyType();
-        } else {
-            // PK fields are in the base class. If more than on PK
-            // field, then they are coming in a map.
-            if (introspectedTable.getPrimaryKeyColumns().size() > 1) {
-                parameterType = "map"; //$NON-NLS-1$
-            } else {
-                parameterType = introspectedTable.getPrimaryKeyColumns().get(0)
-                        .getFullyQualifiedJavaType().toString();
-            }
-        }
-
-        answer.addAttribute(new Attribute("parameterType", //$NON-NLS-1$
-                parameterType));
-
         context.getCommentGenerator().addComment(answer);
 
         StringBuilder sb = new StringBuilder();
+
         sb.append("select "); //$NON-NLS-1$
 
         if (stringHasValue(introspectedTable
@@ -87,32 +80,24 @@ public class SelectByPrimaryKeyElementGenerator extends
         sb.setLength(0);
         sb.append("from "); //$NON-NLS-1$
         sb.append("<include refid=\"table\" />");
-//        sb.append(introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
 
-        boolean and = false;
-        for (IntrospectedColumn introspectedColumn : introspectedTable
-                .getPrimaryKeyColumns()) {
-            sb.setLength(0);
-            if (and) {
-                sb.append("  and "); //$NON-NLS-1$
-            } else {
-                sb.append("where "); //$NON-NLS-1$
-                and = true;
-            }
+        XmlElement whereElement = new XmlElement("where"); //$NON-NLS-1$
 
-            sb.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(introspectedColumn));
-            sb.append(" = "); //$NON-NLS-1$
-            sb.append(MyBatis3FormattingUtilities
-                    .getParameterClause(introspectedColumn));
-            answer.addElement(new TextElement(sb.toString()));
+//        boolean and = false;
+        for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
+            XmlElement ifElement = new XmlElement("if"); //$NON-NLS-1$
+            ifElement.addAttribute(new Attribute("test", introspectedColumn.getJavaProperty() + " != null"));
+            ifElement.addElement(new TextElement("and " + introspectedColumn.getActualColumnName() + " = " + MyBatis3FormattingUtilities.getParameterClause(introspectedColumn)));
+
+            whereElement.addElement(ifElement);
         }
+        answer.addElement(whereElement);
 
-        if (context.getPlugins()
-                .sqlMapSelectByPrimaryKeyElementGenerated(answer,
-                        introspectedTable)) {
+
+//        if (context.getPlugins().sqlMapInsertSelectiveElementGenerated(
+//                answer, introspectedTable)) {
             parentElement.addElement(answer);
-        }
+//        }
     }
 }

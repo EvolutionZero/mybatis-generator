@@ -69,6 +69,7 @@ public class Document {
         return systemId;
     }
 
+    // 生成XML
     public String getFormattedContent() {
         StringBuilder sb = new StringBuilder();
 

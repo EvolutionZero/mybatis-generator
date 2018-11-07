@@ -21,6 +21,7 @@ import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.internal.rules.Rules;
 
 /**
+ * DAO方法名定义
  * @author Jeff Butler
  * 
  */
@@ -84,7 +85,7 @@ public class DefaultDAOMethodNameCalculator implements DAOMethodNameCalculator {
 
     public String getDeleteByPrimaryKeyMethodName(
             IntrospectedTable introspectedTable) {
-        return "deleteByPrimaryKey"; //$NON-NLS-1$
+        return "deleteById"; //$NON-NLS-1$
     }
 
     /**
@@ -121,12 +122,12 @@ public class DefaultDAOMethodNameCalculator implements DAOMethodNameCalculator {
 
     public String getSelectByPrimaryKeyMethodName(
             IntrospectedTable introspectedTable) {
-        return "selectByPrimaryKey"; //$NON-NLS-1$
+        return "findById"; //$NON-NLS-1$
     }
 
     public String getUpdateByPrimaryKeySelectiveMethodName(
             IntrospectedTable introspectedTable) {
-        return "updateByPrimaryKeySelective"; //$NON-NLS-1$
+        return "updateById"; //$NON-NLS-1$
     }
 
     public String getCountByExampleMethodName(
@@ -167,6 +168,16 @@ public class DefaultDAOMethodNameCalculator implements DAOMethodNameCalculator {
 
     public String getInsertSelectiveMethodName(
             IntrospectedTable introspectedTable) {
-        return "insertSelective"; //$NON-NLS-1$
+        return "save"; //$NON-NLS-1$
+    }
+
+    public String getListMethodName(
+            IntrospectedTable introspectedTable) {
+        return "list"; //$NON-NLS-1$
+    }
+
+    public String getCountMethodName(
+            IntrospectedTable introspectedTable) {
+        return "count"; //$NON-NLS-1$
     }
 }

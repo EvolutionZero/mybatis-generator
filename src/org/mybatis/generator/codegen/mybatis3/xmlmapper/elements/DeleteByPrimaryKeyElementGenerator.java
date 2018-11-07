@@ -62,7 +62,7 @@ public class DeleteByPrimaryKeyElementGenerator extends
 
         StringBuilder sb = new StringBuilder();
         sb.append("delete from "); //$NON-NLS-1$
-        sb.append(introspectedTable.getFullyQualifiedTableNameAtRuntime());
+        sb.append("<include refid=\"table\" />");
         answer.addElement(new TextElement(sb.toString()));
 
         boolean and = false;

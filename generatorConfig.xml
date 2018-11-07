@@ -16,15 +16,15 @@
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>  
         </javaTypeResolver>  
-        <javaModelGenerator targetPackage="com.geeku.model.innovative" targetProject="target">  
+        <javaModelGenerator targetPackage="com.victoria.xshop.project.goods.model.entity" targetProject="target">
             <property name="enableSubPackages" value="true"/>  
             <property name="trimStrings" value="true"/>
 <!--           	<property name="rootClass" value="com.geeku.model.BaseModel"/>  -->
         </javaModelGenerator>  
-        <sqlMapGenerator targetPackage="com.geeku.mapping.innovative" targetProject="target">  
+        <sqlMapGenerator targetPackage="com.victoria.xshop.project.goods.mapping" targetProject="target">
             <property name="enableSubPackages" value="true"/>  
         </sqlMapGenerator>  
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.geeku.dao.innovative" targetProject="target">  
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.victoria.xshop.project.goods.mapper" targetProject="target">
             <property name="enableSubPackages" value="true"/>  
         </javaClientGenerator>
         
@@ -41,6 +41,9 @@
 			 <generatedKey column="id" sqlStatement="MySql" identity="true"/>
 		</table>
         <table tableName="scrm_activity_award_log" domainObjectName="ActivityAwardLog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="scrm_activity_bindcard_info_ext" domainObjectName="ActivityBindInfoExt" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>  
