@@ -10,9 +10,9 @@
             <property name="suppressAllComments" value="false"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.0.195:3306/qm_scrm_dev"
-                        userId="qm_weixin"
-                        password="QM_W%12Xi?Hv"/>
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/xshop"
+                        userId="root"
+                        password="root"/>
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>  
         </javaTypeResolver>  
